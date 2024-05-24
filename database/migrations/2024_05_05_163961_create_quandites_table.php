@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('quandites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('articles_id')->constrained()->onDelete('cascade');  
-            $table->string('quandite');
+            $table->integer('quandite');
+            $table->integer('etat');
             $table->timestamps();
         });
     }

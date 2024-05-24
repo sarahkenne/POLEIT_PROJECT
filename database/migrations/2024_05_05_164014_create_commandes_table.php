@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
+            $table->string('payment_intent_id')->unique();
+            $table->string('montant');
+            $table->foreignId('user_id')->constrained();
+            $table->datetime('payment_created_at');
+            $table->text('articles');
             $table->timestamps();
         });
     }
