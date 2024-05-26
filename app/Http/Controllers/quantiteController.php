@@ -58,7 +58,7 @@ class quantiteController extends Controller
         $quandites->quandite =$request->input('quandite');
         $quandites->etat = 1;
         $quandites->save();
-        return redirect()->route('quantites.show' , $quandites->id)
+        return redirect()->route('produits.index')
             ->with('success','article cree avec succes.');
     }
 

@@ -42,7 +42,7 @@ class ArticleBlogController extends Controller
         //
         
         $image = $request->file('image');
-        $image_name = $image->getClientOriginalName();
+       // $image_name = $image->getClientOriginalName();
         if (!is_null($image)) {
             // La valeur de l'input existe, attribuer cette valeur à la variable
             $imageName = time().'.'.$request->image->extension();

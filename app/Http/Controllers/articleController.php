@@ -16,8 +16,9 @@ class articleController extends Controller
     {
         //
         $users = user::All();
+        $categories = categorieproduit::All();
         $articles = article::All();
-        return view('articles.index',compact('users','articles'));
+        return view('articles.index',compact('users','articles','categories'));
     }
 
     /**

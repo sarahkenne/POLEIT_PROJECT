@@ -15,7 +15,11 @@ use App\Http\Controllers\payementController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
 Route::resource('activites', ActiviteController::class);
 Route::resource('inscriptions', inscriptionActiviteController::class);
 Route::resource('blogs', ArticleBlogController::class);
@@ -29,4 +33,18 @@ Route::resource('payements', payementController::class);
 
 /* route de remerciement */
 
-// Route::get('/merci', 'payementController@thankyou' );
+Route::get('/merci',function(){
+    return view('paniers.merci');
+});
+Route::get('test' , function(){
+    return view('test');
+});
+Route::post('/cart/destroy', [panierController::class, 'dest'])->name('cart.destroy');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    
+});
+  

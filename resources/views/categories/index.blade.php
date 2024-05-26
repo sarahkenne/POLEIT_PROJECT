@@ -1,28 +1,89 @@
-<table>
-    <thead>
-        <tr>
-            <th>Intitulé</th>
-            <th>Description</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+@extends('layouts.app1')
+
+@section('title', 'Toutes les catégories')
+
+@section('content')
+<h3>Liste des catégories du blog</h3>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Catégories</h1>
+        <a href="{{ route('categories.create')}}" class="btn btn-secondary">Ajouter une catégorie</a>
+    </div>
+    <div class="row">
         @foreach($categories as $category)
-        <tr>
-            <td>{{ $category->intitule }}</td>
-            <td>{{ $category->description }}</td>
-            <td><a href="{{ route('categories.show', $category->id) }}">Voir</a></td>
-            <td><a href="{{ route('categories.edit', $category->id) }}">Modifier</a></td>
-            <td>
-                <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Supprimer</button>
-                </form>
-            </td>
-        </tr>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $category->intitule }}</h5>
+                        <p class="card-text">{{ Str::limit($category->description, 100) }}</p>
+                        <a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary">Voir les produits</a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editCategoryModal{{ $category->id }}">Modifier</button>
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Category Modal -->
+            <div class="modal fade" id="editCategoryModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel{{ $category->id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editCategoryModalLabel{{ $category->id }}">Modifier la catégorie</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="intitule">Intitulé</label>
+                                    <input type="text" class="form-control" id="intitule" name="intitule" value="{{ $category->intitule }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required>{{ $category->description }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endforeach
-    </tbody>
-</table>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Ajouter une nouvelle catégorie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('categories.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="intitule">Intitulé</label>
+                        <input type="text" class="form-control" id="intitule" name="intitule" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

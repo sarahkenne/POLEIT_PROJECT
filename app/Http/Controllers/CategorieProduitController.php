@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\categorieproduit;
+use App\Models\article;
 
 class CategorieProduitController extends Controller
 {
@@ -47,8 +48,9 @@ class CategorieProduitController extends Controller
     public function show(string $id)
     {
         //
+        $articles = article::All();
         $categorieproduits = categorieproduit::find($id);
-        return view('categorieproduit.show',compact('categorieproduit'));
+        return view('categorieproduits.show',compact('categorieproduits', 'articles'));
     }
 
     /**

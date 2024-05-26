@@ -54,9 +54,9 @@ class payementController extends Controller
     public function store(Request $request)
     {
         //
-    
+        Cart::destroy();
         $data = $request->json()->all();
-       
+    
         $commande = new commande();
         $commande->payment_intent_id = $data['paymentIntent']['id'];
         $commande->montant = $data['paymentIntent']['amount'];
@@ -77,9 +77,11 @@ class payementController extends Controller
         $commande->user_id = 1;
         $commande->save();
         $this->entreeArticle();
+
+       
         if ($data['paymentIntent']['status'] === 'succeeded') {
             
-            Cart::destroy();
+           
             Session::flash('success', 'Votre commande a été traitée avec succès.');
             return response()->json(['success' => 'Payment Intent Succeeded']);
         } else {

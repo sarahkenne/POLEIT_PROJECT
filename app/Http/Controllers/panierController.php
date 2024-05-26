@@ -72,5 +72,12 @@ class panierController extends Controller
         Cart::remove($rowId);
         return back()->with('sucess','le produit a ete supprime');
 
+
+    }
+    public function dest()
+    {
+        Cart::destroy(); // Supprime tous les produits du panier
+
+        return redirect()->route('articles.index')->with('success', 'Panier vidé avec succès');
     }
 }

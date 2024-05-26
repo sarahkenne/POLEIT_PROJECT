@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\articleblog;
 use Illuminate\Http\Request;
 use App\Models\categorie;
 
@@ -46,8 +47,9 @@ class CategorieController extends Controller
     public function show(string $id)
     {
         //
+        $blogs = articleblog::All();
         $categories = categorie::find($id);
-        return view('categories.show',compact('categories'));
+        return view('categories.show',compact('categories','blogs'));
     
     }
 

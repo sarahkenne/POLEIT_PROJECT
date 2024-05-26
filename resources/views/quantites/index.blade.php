@@ -1,21 +1,25 @@
+@extends('layouts.app1')
 
-    <table>
-        <thead>
+@section('content')
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Article ID</th>
+            <th>Quantité</th>
+            <th>Créé le</th>
+            <th>Mis à jour le</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($articlesWithSum as $item)
             <tr>
-         
-                <th>Article ID</th>
-                <th>Quantité</th>
-                <th>Créé le</th>
-                <th>Mis à jour le</th>
+                <td>{{ $item['article']->nom }}</td> 
+                <td>{{ $item['sum'] }}</td>
+                <td>{{ $item['article']->created_at }}</td> <!-- Ajouter cette ligne pour afficher la date de création -->
+                <td>{{ $item['article']->updated_at }}</td> <!-- Ajouter cette ligne pour afficher la date de mise à jour -->
             </tr>
-        </thead>
-        <tbody>
-            @foreach ($articlesWithSum as $item)
-                    <tr>
-                        
-                        <td>{{ $item['article']->nom }}</td> <!-- Assurez-vous que 'name' est une colonne de votre table 'articles' -->
-                        <td>{{ $item['sum'] }}</td>
-                    </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
+
+@endsection

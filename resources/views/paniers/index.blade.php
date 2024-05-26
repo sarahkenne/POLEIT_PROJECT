@@ -190,31 +190,29 @@ a:hover{
                     </div>
                     @endforeach
                 </div>
-                
+                <form action="{{ route('cart.destroy') }}" method="POST">
+                    @csrf
+                    <button type="submit">Vider le Panier</button>
+                </form>
                 <div class="back-to-shop"><a href="{{ route('articles.index')}}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
             </div>
             <div class="col-md-4 summary">
-                <div><h5><b>Summary</b></h5></div>
+                <div><h5><b>Resume</b></h5></div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;">ITEMS {{Cart::count()}}</div>
+                    <div class="col" style="padding-left:0;">Article {{Cart::count()}}</div>
                     <div class="col text-right">{{ getPrice(Cart::subtotal())}}</div>
                 </div>
-                <form>
-                    <p>SHIPPING</p>
-                    <select><option class="text-muted">Standard-Delivery- &euro;5.00</option></select>
-                    <p>GIVE CODE</p>
-                    <input id="code" placeholder="Enter your code">
-                </form>
+                
                 <div class="row" style="padding: 2vh 0">
-                    <div class="col">taxe : </div>
+                    <div class="col">taxe (20%): </div>
                     <div class="col text-right">{{ getPrice(Cart::tax())}}</div>
                 </div>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">total : </div>
                     <div class="col text-right">{{ getPrice(Cart::total())}}</div>
                 </div>
-                <a href="{{ route('payements.create')}}"><button class="btn">CHECKOUT</button></a>
+                <a href="{{ route('payements.create')}}"><button class="btn">paiement</button></a>
                 
             </div>
         </div>

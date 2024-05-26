@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\inscriptionActivite;
 use App\Models\activite;
 use App\Models\user;
+use App\Models\commande;
 
 class poleitController extends Controller
 {
@@ -30,4 +31,15 @@ class poleitController extends Controller
             ->with('success','activite modifie avec succes.');
     }
 
+    
+    public function showCommande($commandeId)
+    {
+        // Récupérer la commande en utilisant son ID
+        $commande = Commande::findOrFail($commandeId);
+    
+        // Déserialize les articles de la commande
+        $articles = unserialize($commande->articles);
+    
+        return view('commande.show', compact('commande', 'articles'));
+    }
 }
