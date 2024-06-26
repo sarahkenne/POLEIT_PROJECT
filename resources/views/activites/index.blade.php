@@ -1,3 +1,6 @@
+@extends('layouts.poleit')
+
+@section('content')
 <table>
     <thead>
         <tr>
@@ -42,3 +45,4 @@
         @endforeach
     </tbody>
 </table>
+@endsection

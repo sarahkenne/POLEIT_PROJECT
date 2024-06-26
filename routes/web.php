@@ -47,4 +47,14 @@ Route::post('/cart/destroy', [panierController::class, 'dest'])->name('cart.dest
 
     
 });
+Route::get('/apropos' , function(){
+    return view('poleit.apropos');
+});
+Route::get('/test1' , function(){
+    return view('poleit.contact');
+});
+
+
+
+
   

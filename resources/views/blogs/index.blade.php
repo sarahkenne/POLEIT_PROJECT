@@ -1,4 +1,6 @@
-<!-- /c:/wamp64/www/POLEIT_PROJECT/resources/views/blogs/index.blade.php -->
+@extends('layouts.poleit')
+
+@section('content')
     <div class="container">
         <h1>Liste des articles du blog</h1>
         <table class="table">
@@ -44,3 +46,4 @@
             </tbody>
         </table>
     </div>
+@endsection
